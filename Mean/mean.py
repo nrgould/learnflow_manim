@@ -14,6 +14,8 @@ class Mean(Scene):
     def construct(self):
         manimpango.list_fonts()
 
+        # section 1
+
         text1 = Text("Means", font_size=LARGE_TEXT, font=FONT)
         text2 = Text("A mean (or average)", font_size=LARGE_TEXT, color=BLUE, font=FONT)
         text3 = Text("is what you use to get", font_size=MEDIUM_TEXT, font=FONT)
@@ -35,13 +37,15 @@ class Mean(Scene):
         self.wait()
         self.play(FadeOut(text1), FadeOut(text2), FadeOut(text3), FadeOut(text4), FadeOut(text5))
 
-        text6 = Text("A class has 5 students with test scores", font_size=MEDIUM_TEXT, font=FONT)
-        text7 = Text("You can't know how well the class did", font_size=MEDIUM_TEXT, font=FONT)
-        text8 = Text("just by looking at a single number ", font_size=MEDIUM_TEXT, slant=ITALIC, color=RED, font=FONT)
+        # section 2
 
-        text6.shift(UP * 3)
-        text7.shift(UP * 3)
-        text8.next_to(text7, DOWN, buff=0.5)
+        text_2_1 = Text("A class has 5 students with test scores", font_size=MEDIUM_TEXT, font=FONT)
+        text_2_2 = Text("You can't know how well the class did", font_size=MEDIUM_TEXT, font=FONT)
+        text_2_3 = Text("just by looking at a single number ", font_size=MEDIUM_TEXT, slant=ITALIC, color=RED, font=FONT)
+
+        text_2_1.shift(UP * 3)
+        text_2_2.shift(UP * 3)
+        text_2_3.next_to(text_2_2, DOWN, buff=0.5)
 
         number1 = Text("66", font_size=SMALL_TEXT, font=FONT)
         number2 = Text("80", font_size=SMALL_TEXT, font=FONT)
@@ -49,21 +53,16 @@ class Mean(Scene):
         number4 = Text("92", font_size=SMALL_TEXT, font=FONT)
         number5 = Text("76", font_size=SMALL_TEXT, font=FONT)
 
-        numbers = [number1, number2, number3, number4, number5]
-
         number1.shift(DOWN * 6).shift(LEFT * 3)
         number2.next_to(number1, RIGHT, buff=1)
         number3.next_to(number2, RIGHT, buff=1)
         number4.next_to(number3, RIGHT, buff=1)
         number5.next_to(number4, RIGHT, buff=1)
 
-        self.play(Create(text6))
+        self.play(Create(text_2_1))
         self.wait()
 
-        # for number in numbers:
-        #     self.play(Create(number), run_time=0.25)
-
-        self.play(Create(number1), Create(number2), Create(number3), Create(number4), Create(number5), run_time=0.75)
+        self.play(Create(number1), Create(number2), Create(number3), Create(number4), Create(number5), run_time=0.5)
         self.wait(0.5)
 
         self.play(number1.animate.shift(UP * 6).shift(LEFT * 2.5).scale(2))
@@ -74,12 +73,13 @@ class Mean(Scene):
 
         self.wait(1.5)
 
-        self.play(text6.animate.shift(UP * 5))
-        self.play(Create(text7))
+        self.play(text_2_1.animate.shift(UP * 5))
+        self.play(Create(text_2_2))
         self.wait()
-        self.play(Create(text8))
+        self.play(Create(text_2_3))
 
-        BOX_TRANSITION_TIME = 0.25
+        BOX_TRANSITION_TIME = 0.1
+        BOX_RUN_TIME = 0.5
         BOX_BUFFER = 0.2
 
         box1 = SurroundingRectangle(number1, buff=BOX_BUFFER)
@@ -88,18 +88,38 @@ class Mean(Scene):
         box4 = SurroundingRectangle(number4, buff=BOX_BUFFER)
         box5 = SurroundingRectangle(number5, buff=BOX_BUFFER)
 
-        question_mark = Text("?", font_size=200, color=YELLOW)
+        question_mark = Text("?", font_size=HUGE_TEXT, color=YELLOW)
         question_mark.shift(DOWN * 3)
 
         self.play(Create(box1))
         self.wait(BOX_TRANSITION_TIME)
-        self.play(Transform(box1, box2))
+        self.play(Transform(box1, box2), run_time=BOX_RUN_TIME)
         self.wait(BOX_TRANSITION_TIME)
-        self.play(Transform(box1, box3))
+        self.play(Transform(box1, box3), run_time=BOX_RUN_TIME)
         self.wait(BOX_TRANSITION_TIME)
-        self.play(Transform(box1, box4))
+        self.play(Transform(box1, box4), run_time=BOX_RUN_TIME)
         self.wait(BOX_TRANSITION_TIME)
-        self.play(Transform(box1, box5))
+        self.play(Transform(box1, box5), run_time=BOX_RUN_TIME)
         self.wait(BOX_TRANSITION_TIME)
-        self.play(Transform(box1, question_mark))
+        self.play(Transform(box1, question_mark), run_time=BOX_RUN_TIME)
         self.wait()
+        self.play(FadeOut(number1), FadeOut(number2), FadeOut(number3), FadeOut(number4), FadeOut(number5),
+                  FadeOut(question_mark), FadeOut(box1), FadeOut(text_2_1), FadeOut(text_2_2), FadeOut(text_2_3))
+
+        # section 3
+
+        text_3_1 = Text("So how do we get a meaningful number?", font_size=MEDIUM_TEXT, font=FONT)
+        text_3_2 = Text("If you take every number in the set", font_size=MEDIUM_TEXT, font=FONT)
+        text_3_3 = Text("and divide by how many numbers", font_size=MEDIUM_TEXT, font=FONT, color=YELLOW)
+        text_3_4 = Text("are in the set", font_size=MEDIUM_TEXT, font=FONT, color=YELLOW, slant=ITALIC)
+
+        text_3_3.next_to(text_3_2, DOWN, buff=1)
+        text_3_4.next_to(text_3_3, DOWN, buff=1)
+
+        self.play(Create(text_3_1))
+        self.wait()
+        self.play(text_3_1.animate.shift(UP * 5))
+        self.play(Create(text_3_2))
+        self.play(Create(text_3_3))
+        self.wait()
+
